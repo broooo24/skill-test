@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Map<String, List<String>> firstByLast = PeopleProcessor.firstnamesByLastname(PeopleSetup.people);
         Map<String, List<String>> lastByFirst = PeopleProcessor.lastnamesByFirstName(PeopleSetup.people);
-        get3Longest(firstByLast);
+        get3Longest(lastByFirst);
 
 
     }
