@@ -1,4 +1,6 @@
 package com.cgi.boat.interview;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PeopleProcessor {
     /*
@@ -7,30 +9,32 @@ public class PeopleProcessor {
             * Expected result would be:
             * {
      *  "John" -> ["Doe", "Silver"]
-     *  "Peter" -> ["Doe"]
+     *  "Peter" -> ["Doe"
      * }
      */
-    static Map<String, List<String >> lastnamesByFirstName(List<Person> people){
-        Map<String, List<String >> result = new HashMap();
+    static Map<String, Long> lastnamesByFirstName(List<Person> people,int limitNumber){
+        Map<String, Long> result = people.stream()
+                .collect(Collectors.groupingBy(Person::getLastName,Collectors.counting()));
+        Map<String,Long> finalMap = new LinkedHashMap<>();
+        result.entrySet()
+                .stream()
+                .sorted(Map.Entry.<String,Long>comparingByValue().reversed())
+                .limit(limitNumber)
+                .forEachOrdered(e->finalMap.put(e.getKey(),e.getValue()));
 
-        for (Person person : people) {
-            if (!result.containsKey(person.getFirstName())) {
-                result.put(person.getFirstName(), new ArrayList<String>());
-            }
-            result.get(person.getFirstName()).add(person.getLastName());
-        }
-        return result;
+        return finalMap;
     }
 
-    static Map<String, List<String >> firstnamesByLastname(List<Person> people){
-        Map<String, List<String >> result = new HashMap();
+    static Map<String, Long> firstnamesByLastname(List<Person> people,int limitNumber){
+        Map<String, Long> result = people.stream()
+                .collect(Collectors.groupingBy(Person::getFirstName,Collectors.counting()));
+        Map<String,Long> finalMap = new LinkedHashMap<>();
+        result.entrySet()
+                .stream()
+                .sorted(Map.Entry.<String,Long>comparingByValue().reversed())
+                .limit(limitNumber)
+                .forEachOrdered(e->finalMap.put(e.getKey(),e.getValue()));
 
-        for (Person person : people) {
-            if (!result.containsKey(person.getLastName())) {
-                result.put(person.getLastName(), new ArrayList<String>());
-            }
-            result.get(person.getLastName()).add(person.getFirstName());
-        }
-        return result;
+        return finalMap;
     }
 }
