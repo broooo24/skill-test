@@ -14,7 +14,7 @@ public class PeopleProcessor {
      */
     static Map<String, Long> lastnamesByFirstName(List<Person> people,int limitNumber){
         Map<String, Long> result = people.stream()
-                .collect(Collectors.groupingBy(Person::getLastName,Collectors.counting()));
+                .collect(Collectors.groupingBy(Person::getFirstName,Collectors.counting()));
         Map<String,Long> finalMap = new LinkedHashMap<>();
         result.entrySet()
                 .stream()
@@ -27,7 +27,7 @@ public class PeopleProcessor {
 
     static Map<String, Long> firstnamesByLastname(List<Person> people,int limitNumber){
         Map<String, Long> result = people.stream()
-                .collect(Collectors.groupingBy(Person::getFirstName,Collectors.counting()));
+                .collect(Collectors.groupingBy(Person::getLastName,Collectors.counting()));
         Map<String,Long> finalMap = new LinkedHashMap<>();
         result.entrySet()
                 .stream()
