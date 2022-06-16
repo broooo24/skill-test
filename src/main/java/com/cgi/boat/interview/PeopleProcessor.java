@@ -16,7 +16,7 @@ public class PeopleProcessor {
     static Map<String, List<String>> firstnamesByLastname(List<Person> people){
         var peopleStream = people.stream()
                 .collect(groupingBy(Person::getLastName,
-                        Collectors.mapping(Person::getLastName, Collectors.toList())));
+                        Collectors.mapping(Person::getFirstName, Collectors.toList())));
         return peopleStream;
     }
 }
